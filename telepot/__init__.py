@@ -1170,7 +1170,10 @@ class Bot(_BotBase):
                                            'chosen_inline_result',
                                            'shipping_query',
                                            'pre_checkout_query'])
-            collect_queue.put(update[key])
+            if key in update:
+                collect_queue.put(update[key])
+            else:
+                print("收到了没有处理的消息",update.keys())
             return update['update_id']
 
         def get_from_telegram_server():
